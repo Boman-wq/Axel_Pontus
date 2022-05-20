@@ -167,7 +167,7 @@ namespace WebAPITest
 
             var result = await _sut.Search(gameName);
 
-            result.Should().BeSameAs(expectedItems);
+            result.Should().BeEquivalentTo(expectedItems);
         }
 
         [TestMethod]
