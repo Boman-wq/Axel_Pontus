@@ -108,12 +108,20 @@ namespace WebAPITest
         {
             throw new NotImplementedException();
         }
+
         [TestMethod]
         public async Task DeleteGames_WithExistingGame_ShouldReturnNoContent()
         {
-            throw new NotImplementedException();
-        }
+            //Arrange
+            Game existingGame = CreateRandomGame();
+            _gameRepoMock.Setup(x => x.GetGame(It.IsAny<Guid>())).ReturnsAsync(existingGame);
 
+            //Act
+            var result = await _sut.DeleteForm(existingGame.Id);
+
+            //Assert
+            result.Should().BeOfType<NoContentResult>();
+        }
 
         private Game CreateRandomGame()
         {
