@@ -11,11 +11,7 @@ using FluentAssertions;
 using System;
 using Microsoft.Extensions.Logging;
 using Catalog.Dtos;
-// Arrange
 
-// Act
-
-// Assert
 namespace WebAPITest
 {
     [TestClass]
@@ -93,9 +89,7 @@ namespace WebAPITest
 
 
             // Assert
-            foundGames.Should().OnlyContain(
-                game => game.Name == games[0].Name || game.Name == games[2].Name
-                );
+            foundGames.Should().OnlyContain( game => game.Name == games[0].Name || game.Name == games[2].Name);
 
         }
         [TestMethod]
@@ -122,6 +116,7 @@ namespace WebAPITest
         [TestMethod]
         public async Task Updategame_WithExistingGame_ShouldReturnNoContent()
         {
+            // Arrange
             var existingGame = CreateRandomGame();
 
             _gameRepoMock.Setup(x => x.GetGame(It.IsAny<Guid>())).ReturnsAsync(existingGame);
@@ -132,9 +127,10 @@ namespace WebAPITest
                 Guid.NewGuid().ToString(),
                 rand.Next(1, 10),
                 Guid.NewGuid().ToString());
-
+            // Act
             var result = await _sut.UpdateGame(gameId, gameUpdate);
 
+            // Assert
             result.Should().BeOfType<NoContentResult>();
         }
 
