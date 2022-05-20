@@ -29,7 +29,6 @@ namespace WebAPITest
         public ApiTest()
         {
             _sut = new GameController(_gameRepoMock.Object, _loggerMock.Object);
-            var asd = 1;
         }
 
         [TestMethod]
