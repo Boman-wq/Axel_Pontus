@@ -147,6 +147,34 @@ namespace WebAPITest
             //Assert
             result.Should().BeOfType<NoContentResult>();
         }
+        
+        [TestMethod]
+        public async Task SearchGame_WithExistingGame_ShouldReturnGame()
+        {
+            string gameName = "gameName";
+            List<Game> expectedItems = new()
+            {
+                new Game(){
+                    Id = Guid.NewGuid(),
+                    Name = gameName,
+                    Description = Guid.NewGuid().ToString(),
+                    Grade = rand.Next(1, 10),
+                    Image = Guid.NewGuid().ToString()
+                }
+            };
+
+            _gameRepoMock.Setup(x => x.Search(It.IsAny<string>())).ReturnsAsync(expectedItems);
+
+            var result = await _sut.Search(gameName);
+
+            result.Should().BeSameAs(expectedItems);
+        }
+
+        [TestMethod]
+        public async Task SearchGame_WithUnexistingGame_ShouldReturnNotFound()
+        {
+            throw new NotImplementedException();
+        }
 
         private Game CreateRandomGame()
         {
