@@ -68,7 +68,7 @@ namespace Catalog.Controllers
 
         
         [HttpPut("{id}")]
-        public async Task<ActionResult> UpdateForm(Guid id, UpdateGameDto GameDto)
+        public async Task<ActionResult> UpdateGame(Guid id, UpdateGameDto GameDto)
         {
             var existingForm = await repository.GetGame(id);
             if (existingForm is null)

@@ -101,17 +101,46 @@ namespace WebAPITest
         [TestMethod]
         public async Task CreateGame_WithGameToCreate_ShouldReturnCreatedGame()
         {
-            throw new NotImplementedException();
+            // Arrange
+            var gameToCreate = new CreateGameDto(
+                Guid.NewGuid().ToString(),
+                Guid.NewGuid().ToString(),
+                rand.Next(1, 10),
+                Guid.NewGuid().ToString());
+
+            // Act
+            var result = await _sut.CreateGame(gameToCreate);
+
+            // Assert
+            var createdGame = (result.Result as CreatedAtActionResult).Value as GameDto;
+            gameToCreate.Should().BeEquivalentTo(
+                createdGame, op => op.ComparingByMembers<GameDto>().ExcludingMissingMembers()
+            );
+            createdGame.Id.Should().NotBeEmpty();
+
         }
         [TestMethod]
         public async Task Updategame_WithExistingGame_ShouldReturnNoContent()
         {
-            throw new NotImplementedException();
+            var existingGame = CreateRandomGame();
+
+            _gameRepoMock.Setup(x => x.GetGame(It.IsAny<Guid>())).ReturnsAsync(existingGame);
+
+            var gameId = existingGame.Id;
+            var gameUpdate = new UpdateGameDto(
+                Guid.NewGuid().ToString(),
+                Guid.NewGuid().ToString(),
+                rand.Next(1, 10),
+                Guid.NewGuid().ToString());
+
+            var result = await _sut.UpdateGame(gameId, gameUpdate);
+
+            result.Should().BeOfType<NoContentResult>();
         }
         [TestMethod]
         public async Task DeleteGames_WithExistingGame_ShouldReturnNoContent()
         {
-            throw new NotImplementedException();
+            
         }
 
 
