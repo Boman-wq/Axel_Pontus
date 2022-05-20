@@ -5,15 +5,9 @@ namespace Catalog
 {
     public static class Extenstions
     {
-        public static GameDto AsDto(this Game form)
+        public static GameDto AsDto(this Game game)
         {
-            return new GameDto{
-                Id = form.Id,
-                Name = form.Name,
-                Description = form.Description,
-                Grade = form.Grade,
-                Image = form.Image
-            };
+            return new GameDto(game.Id, game.Name, game.Description, game.Grade, game.Image);
         }
     }
 }
