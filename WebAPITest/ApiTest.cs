@@ -29,9 +29,8 @@ namespace WebAPITest
         public ApiTest()
         {
             _sut = new GameController(_gameRepoMock.Object, _loggerMock.Object);
+            var asd = 1;
         }
-
-        
 
         [TestMethod]
         public async Task GetGame_WithUnexistingItem_ShouldReturnNotFound()
@@ -46,6 +45,7 @@ namespace WebAPITest
             // Assert
             result.Result.Should().BeOfType<NotFoundResult>();
         }
+
         [TestMethod]
         public async Task GetGame_WithExistingItem_ShouldReturnExpectedItem()
         {
