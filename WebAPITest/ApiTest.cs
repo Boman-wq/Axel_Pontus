@@ -6,24 +6,22 @@ using Microsoft.AspNetCore.Mvc;
 using Catalog.Controllers;
 using System.Threading.Tasks;
 using Moq;
-using Microsoft.AspNetCore.Hosting;
 using FluentAssertions;
 using System;
 using Microsoft.Extensions.Logging;
 using Catalog.Dtos;
-using System.Linq;
 
 namespace WebAPITest
 {
     [TestClass]
-    public class ApiTest
+    public class TestGetGame
     {
         private readonly GameController _sut;
         private readonly Mock<IGameRepository> _gameRepoMock = new Mock<IGameRepository>();
         private readonly Mock<ILogger<GameController>> _loggerMock = new Mock<ILogger<GameController>>();
         private readonly Random rand = new();
 
-        public ApiTest()
+        public TestGetGame()
         {
             _sut = new GameController(_gameRepoMock.Object, _loggerMock.Object);
         }
@@ -46,7 +44,7 @@ namespace WebAPITest
         public async Task GetGame_WithExistingItem_ShouldReturnExpectedItem()
         {
             // Arrange
-            Game expectedGame = CreateRandomGame();
+            Game expectedGame = Create.NewGame();
 
             _gameRepoMock.Setup(x => x.GetGame(It.IsAny<Guid>())).ReturnsAsync(expectedGame);
 
@@ -56,11 +54,26 @@ namespace WebAPITest
             // Assert
             result.Value.Should().BeEquivalentTo(expectedGame);
         }
+    }
+
+    [TestClass]
+    public class TestGetGames
+    {
+        private readonly GameController _sut;
+        private readonly Mock<IGameRepository> _gameRepoMock = new Mock<IGameRepository>();
+        private readonly Mock<ILogger<GameController>> _loggerMock = new Mock<ILogger<GameController>>();
+        private readonly Random rand = new();
+
+        public TestGetGames()
+        {
+            _sut = new GameController(_gameRepoMock.Object, _loggerMock.Object);
+        }
+
         [TestMethod]
         public async Task GetGames_WithExistingItem_ShouldReturnAllItems()
         {
             // Arrange
-            var expectedItems = new[] { CreateRandomGame(), CreateRandomGame(), CreateRandomGame(), CreateRandomGame() };
+            var expectedItems = new[] { Create.NewGame(), Create.NewGame(), Create.NewGame(), Create.NewGame() };
 
             // Act
             _gameRepoMock.Setup(x => x.GetGames())
@@ -71,6 +84,7 @@ namespace WebAPITest
             // Assert
             actualItems.Should().BeEquivalentTo(expectedItems);
         }
+
         [TestMethod]
         public async Task GetGames_WithMatchingItems_ShouldReturnMatchingGames()
         {
@@ -88,11 +102,24 @@ namespace WebAPITest
             // Act
             IEnumerable<GameDto> foundGames = await _sut.GetGames(name);
 
-
             // Assert
-            foundGames.Should().OnlyContain( game => game.Name == games[0].Name || game.Name == games[2].Name);
-
+            foundGames.Should().OnlyContain(game => game.Name == games[0].Name || game.Name == games[2].Name);
         }
+    }
+
+    [TestClass]
+    public class TestCreateGame
+    {
+        private readonly GameController _sut;
+        private readonly Mock<IGameRepository> _gameRepoMock = new Mock<IGameRepository>();
+        private readonly Mock<ILogger<GameController>> _loggerMock = new Mock<ILogger<GameController>>();
+        private readonly Random rand = new();
+
+        public TestCreateGame()
+        {
+            _sut = new GameController(_gameRepoMock.Object, _loggerMock.Object);
+        }
+
         [TestMethod]
         public async Task CreateGame_WithGameToCreate_ShouldReturnCreatedGame()
         {
@@ -113,13 +140,27 @@ namespace WebAPITest
                 createdGame, op => op.ComparingByMembers<GameDto>().ExcludingMissingMembers()
             );
             createdGame.Id.Should().NotBeEmpty();
-
         }
+    }
+
+    [TestClass]
+    public class TestUpdateGame
+    {
+        private readonly GameController _sut;
+        private readonly Mock<IGameRepository> _gameRepoMock = new Mock<IGameRepository>();
+        private readonly Mock<ILogger<GameController>> _loggerMock = new Mock<ILogger<GameController>>();
+        private readonly Random rand = new();
+
+        public TestUpdateGame()
+        {
+            _sut = new GameController(_gameRepoMock.Object, _loggerMock.Object);
+        }
+
         [TestMethod]
         public async Task Updategame_WithExistingGame_ShouldReturnNoContent()
         {
             // Arrange
-            var existingGame = CreateRandomGame();
+            var existingGame = Create.NewGame();
 
             _gameRepoMock.Setup(x => x.GetGame(It.IsAny<Guid>())).ReturnsAsync(existingGame);
 
@@ -136,6 +177,7 @@ namespace WebAPITest
 
             result.Should().BeOfType<NoContentResult>();
         }
+
         [TestMethod]
         public async Task UpdateGame_WithUnexistingGame_ShouldReturnNotFound()
         {
@@ -151,11 +193,26 @@ namespace WebAPITest
 
             result.Should().BeOfType<NotFoundResult>();
         }
+    }
+
+    [TestClass]
+    public class TestDeleteGame
+    {
+        private readonly GameController _sut;
+        private readonly Mock<IGameRepository> _gameRepoMock = new Mock<IGameRepository>();
+        private readonly Mock<ILogger<GameController>> _loggerMock = new Mock<ILogger<GameController>>();
+        private readonly Random rand = new();
+
+        public TestDeleteGame()
+        {
+            _sut = new GameController(_gameRepoMock.Object, _loggerMock.Object);
+        }
+
         [TestMethod]
         public async Task DeleteGame_WithExistingGame_ShouldReturnNoContent()
         {
             //Arrange
-            Game existingGame = CreateRandomGame();
+            Game existingGame = Create.NewGame();
             _gameRepoMock.Setup(x => x.GetGame(It.IsAny<Guid>())).ReturnsAsync(existingGame);
 
             //Act
@@ -164,6 +221,7 @@ namespace WebAPITest
             //Assert
             result.Should().BeOfType<NoContentResult>();
         }
+
         [TestMethod]
         public async Task DeleteGame_WithUnexistingGame_ShouldReturnNotFound()
         {
@@ -176,6 +234,21 @@ namespace WebAPITest
             // Assert
             result.Should().BeOfType<NotFoundResult>();
         }
+    }
+
+    [TestClass]
+    public class TestSearchGame
+    {
+        private readonly GameController _sut;
+        private readonly Mock<IGameRepository> _gameRepoMock = new Mock<IGameRepository>();
+        private readonly Mock<ILogger<GameController>> _loggerMock = new Mock<ILogger<GameController>>();
+        private readonly Random rand = new();
+
+        public TestSearchGame()
+        {
+            _sut = new GameController(_gameRepoMock.Object, _loggerMock.Object);
+        }
+
         [TestMethod]
         public async Task SearchGame_WithExistingGame_ShouldReturnGame()
         {
@@ -208,9 +281,13 @@ namespace WebAPITest
 
             result.Result.Should().BeOfType<NotFoundResult>();
         }
+    }
 
-        private Game CreateRandomGame()
+    public class Create
+    {
+        public static Game NewGame()
         {
+            Random rand = new();
             return new()
             {
                 Id = Guid.NewGuid(),
