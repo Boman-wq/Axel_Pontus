@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
 using Catalog.Dtos;
@@ -9,6 +10,7 @@ using MongoDB.Driver;
 
 namespace Catalog.Reposotories
 {
+    [ExcludeFromCodeCoverage]
     public class MongoDbGameRepository : IGameRepository
     {
         private const string databaseName = "catalog";

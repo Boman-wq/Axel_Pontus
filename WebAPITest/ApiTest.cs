@@ -198,7 +198,6 @@ namespace WebAPITest
             result.Should().BeOfType<ActionResult<IEnumerable<Game>>>();
             EnumAssertionsExtensions.ReferenceEquals(expectedItems, result.Value);
         }
-
         [TestMethod]
         public async Task SearchGame_WithUnexistingGame_ShouldReturnNotFound()
         {
