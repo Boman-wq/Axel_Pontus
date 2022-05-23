@@ -153,8 +153,8 @@ namespace WebAPITest
         [TestMethod]
         public async Task SearchGame_WithExistingGame_ShouldReturnGame()
         {
-            string gameName = "gameNames";
-            List<Game> existingGames = new()
+            string gameName = "gameName";
+            List<Game> expectedItems = new()
             {
                 new Game(){
                     Id = Guid.NewGuid(),
@@ -165,11 +165,12 @@ namespace WebAPITest
                 }
             };
 
-            _gameRepoMock.Setup(x => x.GetGames()).ReturnsAsync(existingGames);
+            _gameRepoMock.Setup(x => x.Search(It.IsAny<string>())).ReturnsAsync(expectedItems);
 
             var result = await _sut.Search(gameName);
 
-            result.Value.Should().NotBeNull();
+            result.Should().BeOfType<ActionResult<IEnumerable<Game>>>();
+            EnumAssertionsExtensions.ReferenceEquals(expectedItems, result.Value);
         }
 
         [TestMethod]
