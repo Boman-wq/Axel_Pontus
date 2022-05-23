@@ -201,8 +201,12 @@ namespace WebAPITest
 
         [TestMethod]
         public async Task SearchGame_WithUnexistingGame_ShouldReturnNotFound()
-        { 
-           
+        {
+            _gameRepoMock.Setup(x => x.Search(It.IsAny<string>())).ReturnsAsync((IEnumerable<Game>)null);
+
+            var result = await _sut.Search(It.IsAny<string>());
+
+            result.Result.Should().BeOfType<NotFoundResult>();
         }
 
         private Game CreateRandomGame()

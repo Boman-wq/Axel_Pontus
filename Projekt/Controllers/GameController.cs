@@ -100,14 +100,15 @@ namespace Catalog.Controllers
         [HttpGet("search")]
         public async Task<ActionResult<IEnumerable<Game>>> Search(string name)
         {
-           var games = (await repository.Search(name)).Select(game => game.AsDto());
+            var games = await repository.Search(name);
             if (games is null){
                 logger.LogInformation($"{DateTime.UtcNow.ToString("hh:mm:ss")} SearchRequest:{NotFound()}");
                 return NotFound();
             }
 
             logger.LogInformation($"{DateTime.UtcNow.ToString("hh:mm:ss")} Retrived {games.Count()} SearchRequests");
-            return Ok(games);
+            var gamesReturned = games.Select(game => game.AsDto());
+            return Ok(gamesReturned);
         }
     }
 }
