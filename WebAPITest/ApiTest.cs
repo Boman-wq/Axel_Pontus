@@ -147,6 +147,11 @@ namespace WebAPITest
             //Assert
             result.Should().BeOfType<NoContentResult>();
         }
+
+        public async Task DeleteGames_WithUnexistingGame_ShouldReturnNotFound()
+        {
+            throw new NotImplementedException();
+        }
         
         [TestMethod]
         public async Task SearchGame_WithExistingGame_ShouldReturnGame()
