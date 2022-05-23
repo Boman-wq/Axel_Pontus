@@ -167,7 +167,8 @@ namespace WebAPITest
 
             var result = await _sut.Search(gameName);
 
-            result.Should().BeEquivalentTo(expectedItems);
+            result.Should().BeOfType<ActionResult<IEnumerable<Game>>>();
+            EnumAssertionsExtensions.ReferenceEquals(expectedItems, result.Value);
         }
 
         [TestMethod]
