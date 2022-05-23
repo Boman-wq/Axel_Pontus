@@ -105,6 +105,7 @@ namespace Catalog.Controllers
                 logger.LogInformation($"{DateTime.UtcNow.ToString("hh:mm:ss")} SearchRequest:{NotFound()}");
                 return NotFound();
             }
+
             logger.LogInformation($"{DateTime.UtcNow.ToString("hh:mm:ss")} Retrived {games.Count()} SearchRequests");
             return Ok(games);
         }

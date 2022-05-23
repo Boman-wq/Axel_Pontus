@@ -11,6 +11,7 @@ using FluentAssertions;
 using System;
 using Microsoft.Extensions.Logging;
 using Catalog.Dtos;
+using System.Linq;
 
 namespace WebAPITest
 {
@@ -76,11 +77,11 @@ namespace WebAPITest
             // Arrange
             Game[] games = new[]
             {
-                new Game(){Name = "CS:GO"},
+                new Game(){Name = "GTA 5"},
                 new Game(){Name = "LoL"},
-                new Game(){Name = "WoW"}
+                new Game(){Name = "GTA 4"}
             };
-            var name = "WoW";
+            var name = "GTA";
 
             _gameRepoMock.Setup(x => x.GetGames()).ReturnsAsync(games);
 
@@ -135,9 +136,23 @@ namespace WebAPITest
 
             result.Should().BeOfType<NoContentResult>();
         }
-
         [TestMethod]
-        public async Task DeleteGames_WithExistingGame_ShouldReturnNoContent()
+        public async Task UpdateGame_WithUnexistingGame_ShouldReturnNotFound()
+        {
+            _gameRepoMock.Setup(x => x.GetGame(It.IsAny<Guid>())).ReturnsAsync((Game)null);
+
+            var gameUpdate = new UpdateGameDto(
+                Guid.NewGuid().ToString(),
+                Guid.NewGuid().ToString(),
+                rand.Next(1, 10),
+                Guid.NewGuid().ToString());
+
+            var result = await _sut.UpdateGame(Guid.NewGuid(), gameUpdate);
+
+            result.Should().BeOfType<NotFoundResult>();
+        }
+        [TestMethod]
+        public async Task DeleteGame_WithExistingGame_ShouldReturnNoContent()
         {
             //Arrange
             Game existingGame = CreateRandomGame();
@@ -149,7 +164,18 @@ namespace WebAPITest
             //Assert
             result.Should().BeOfType<NoContentResult>();
         }
-        
+        [TestMethod]
+        public async Task DeleteGame_WithUnexistingGame_ShouldReturnNotFound()
+        {
+            // Arrange
+            _gameRepoMock.Setup(x => x.GetGame(It.IsAny<Guid>())).ReturnsAsync((Game)null);
+
+            // Act
+            var result = await _sut.DeleteGame(Guid.NewGuid());
+
+            // Assert
+            result.Should().BeOfType<NotFoundResult>();
+        }
         [TestMethod]
         public async Task SearchGame_WithExistingGame_ShouldReturnGame()
         {
@@ -175,8 +201,8 @@ namespace WebAPITest
 
         [TestMethod]
         public async Task SearchGame_WithUnexistingGame_ShouldReturnNotFound()
-        {
-            throw new NotImplementedException();
+        { 
+           
         }
 
         private Game CreateRandomGame()
