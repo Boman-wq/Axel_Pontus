@@ -142,7 +142,7 @@ namespace WebAPITest
             _gameRepoMock.Setup(x => x.GetGame(It.IsAny<Guid>())).ReturnsAsync(existingGame);
 
             //Act
-            var result = await _sut.DeleteForm(existingGame.Id);
+            var result = await _sut.DeleteGame(existingGame.Id);
 
             //Assert
             result.Should().BeOfType<NoContentResult>();

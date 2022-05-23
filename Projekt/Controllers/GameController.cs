@@ -32,7 +32,7 @@ namespace Catalog.Controllers
             if(!string.IsNullOrEmpty(name))
                 games = games.Where(game => game.Name.Contains(name, StringComparison.OrdinalIgnoreCase));
 
-            logger.LogInformation($"{DateTime.UtcNow.ToString("hh:mm:ss")}: Retrived {games.Count()} forms");
+            logger.LogInformation($"{DateTime.UtcNow.ToString("hh:mm:ss")}: Retrived {games.Count()} games");
             return games;
         }
 
@@ -62,7 +62,7 @@ namespace Catalog.Controllers
                 Image = GameDto.Image
             };
             await repository.CreateGame(game);
-            logger.LogInformation($"{DateTime.UtcNow.ToString("hh:mm:ss")} Form {game.Id} created");
+            logger.LogInformation($"{DateTime.UtcNow.ToString("hh:mm:ss")} Game {game.Id} created");
             return CreatedAtAction(nameof(GetGame), new { id = game.Id}, game.AsDto());
         }
 
@@ -70,43 +70,43 @@ namespace Catalog.Controllers
         [HttpPut("{id}")]
         public async Task<ActionResult> UpdateGame(Guid id, UpdateGameDto GameDto)
         {
-            var existingForm = await repository.GetGame(id);
-            if (existingForm is null)
+            var existingGame = await repository.GetGame(id);
+            if (existingGame is null)
                 return NotFound();
 
-            existingForm.Name = GameDto.Name;
-            existingForm.Description = GameDto.Description;
-            existingForm.Grade = GameDto.Grade;
-            existingForm.Image = GameDto.Image;
+            existingGame.Name = GameDto.Name;
+            existingGame.Description = GameDto.Description;
+            existingGame.Grade = GameDto.Grade;
+            existingGame.Image = GameDto.Image;
             
-            await repository.UpdateGame(existingForm);
+            await repository.UpdateGame(existingGame);
             return NoContent();
         }
         
         
         [HttpDelete("{id}")]
-        public async Task<ActionResult> DeleteForm(Guid id)
+        public async Task<ActionResult> DeleteGame(Guid id)
         {
-            var existingForm = await repository.GetGame(id);
-            if (existingForm is null){
+            var existingGame = await repository.GetGame(id);
+            if (existingGame is null){
                 logger.LogInformation($"{DateTime.UtcNow.ToString("hh:mm:ss")} DeleteRequest {NotFound()}");
                 return NotFound();
             }
             await repository.DeleteGame(id);
-            logger.LogInformation($"{DateTime.UtcNow.ToString("hh:mm:ss")} Form {id} deleted");
+            logger.LogInformation($"{DateTime.UtcNow.ToString("hh:mm:ss")} Game {id} deleted");
             return NoContent();
         }
 
         [HttpGet("search")]
         public async Task<ActionResult<IEnumerable<Game>>> Search(string name)
         {
-           var forms = (await repository.Search(name)).Select(game => game.AsDto());
-            if (forms is null){
+           var games = (await repository.Search(name)).Select(game => game.AsDto());
+            if (games is null){
                 logger.LogInformation($"{DateTime.UtcNow.ToString("hh:mm:ss")} SearchRequest:{NotFound()}");
                 return NotFound();
             }
-            logger.LogInformation($"{DateTime.UtcNow.ToString("hh:mm:ss")} Retrived {forms.Count()} SearchRequests");
-            return Ok(forms);
+            logger.LogInformation($"{DateTime.UtcNow.ToString("hh:mm:ss")} Retrived {games.Count()} SearchRequests");
+            return Ok(games);
         }
     }
 }
