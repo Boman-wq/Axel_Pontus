@@ -7,7 +7,7 @@ namespace Catalog.Reposotories
 {
     public interface IGameRepository
     {
-        Task <IEnumerable<Game>> Search(string lärare);
+        Task <IEnumerable<Game>> Search(string name);
         Task<Game> GetGame(Guid id);
         Task <IEnumerable<Game>> GetGames();
         Task CreateGame(Game form);

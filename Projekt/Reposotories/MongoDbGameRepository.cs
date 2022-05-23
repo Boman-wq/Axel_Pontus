@@ -46,7 +46,7 @@ namespace Catalog.Reposotories
         public async Task<IEnumerable<Game>> Search(string name)
         {
             var filter = filterBuilder.Eq(game => game.Name, name);
-            
+
             return await formsCollection.Find(filter).ToListAsync();
         }
         
