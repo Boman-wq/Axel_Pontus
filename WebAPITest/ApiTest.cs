@@ -27,7 +27,7 @@ namespace WebAPITest
         }
 
         [TestMethod]
-        public async Task GetGame_WithUnexistingItem_ShouldReturnNotFound()
+        public async Task GetGame_WithUnexistingGame_ShouldReturnNotFound()
         {
             // Arrange
             _gameRepoMock.Setup(x => x.GetGame(It.IsAny<Guid>()))
@@ -41,7 +41,7 @@ namespace WebAPITest
         }
 
         [TestMethod]
-        public async Task GetGame_WithExistingItem_ShouldReturnExpectedItem()
+        public async Task GetGame_WithExistingGame_ShouldReturnExpectedItem()
         {
             // Arrange
             Game expectedGame = Create.NewGame();
