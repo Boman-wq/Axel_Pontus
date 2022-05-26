@@ -1,0 +1,22 @@
+2022-05-26 10:21:52.8994|INFO|WebAPITest.TestBase|Started with test 'WebAPITest.TestCreateGame.CreateGame_WithGameToCreate_ShouldReturnCreatedGame'
+2022-05-26 10:21:52.9783|INFO|WebAPITest.TestBase|Test 'WebAPITest.TestCreateGame.CreateGame_WithGameToCreate_ShouldReturnCreatedGame' PASSED
+2022-05-26 10:21:52.9892|INFO|WebAPITest.TestBase|Started with test 'WebAPITest.TestDeleteGame.DeleteGame_WithExistingGame_ShouldReturnNoContent'
+2022-05-26 10:21:53.0121|INFO|WebAPITest.TestBase|Test 'WebAPITest.TestDeleteGame.DeleteGame_WithExistingGame_ShouldReturnNoContent' PASSED
+2022-05-26 10:21:53.0121|INFO|WebAPITest.TestBase|Started with test 'WebAPITest.TestDeleteGame.DeleteGame_WithUnexistingGame_ShouldReturnNotFound'
+2022-05-26 10:21:53.0121|INFO|WebAPITest.TestBase|Test 'WebAPITest.TestDeleteGame.DeleteGame_WithUnexistingGame_ShouldReturnNotFound' PASSED
+2022-05-26 10:21:53.0121|INFO|WebAPITest.TestBase|Started with test 'WebAPITest.TestGetGame.GetGame_WithExistingGame_ShouldReturnExpectedItem'
+2022-05-26 10:21:53.0165|INFO|WebAPITest.TestBase|Test 'WebAPITest.TestGetGame.GetGame_WithExistingGame_ShouldReturnExpectedItem' PASSED
+2022-05-26 10:21:53.0165|INFO|WebAPITest.TestBase|Started with test 'WebAPITest.TestGetGame.GetGame_WithUnexistingGame_ShouldReturnNotFound'
+2022-05-26 10:21:53.0165|INFO|WebAPITest.TestBase|Test 'WebAPITest.TestGetGame.GetGame_WithUnexistingGame_ShouldReturnNotFound' PASSED
+2022-05-26 10:21:53.0165|INFO|WebAPITest.TestBase|Started with test 'WebAPITest.TestGetGames.GetGames_WithExistingItem_ShouldReturnAllItems'
+2022-05-26 10:21:53.0341|INFO|WebAPITest.TestBase|Test 'WebAPITest.TestGetGames.GetGames_WithExistingItem_ShouldReturnAllItems' PASSED
+2022-05-26 10:21:53.0341|INFO|WebAPITest.TestBase|Started with test 'WebAPITest.TestGetGames.GetGames_WithMatchingItems_ShouldReturnMatchingGames'
+2022-05-26 10:21:53.0460|INFO|WebAPITest.TestBase|Test 'WebAPITest.TestGetGames.GetGames_WithMatchingItems_ShouldReturnMatchingGames' PASSED
+2022-05-26 10:21:53.0460|INFO|WebAPITest.TestBase|Started with test 'WebAPITest.TestSearchGame.SearchGame_WithExistingGame_ShouldReturnGame'
+2022-05-26 10:21:53.0460|INFO|WebAPITest.TestBase|Test 'WebAPITest.TestSearchGame.SearchGame_WithExistingGame_ShouldReturnGame' PASSED
+2022-05-26 10:21:53.0460|INFO|WebAPITest.TestBase|Started with test 'WebAPITest.TestSearchGame.SearchGame_WithUnexistingGame_ShouldReturnNotFound'
+2022-05-26 10:21:53.0460|INFO|WebAPITest.TestBase|Test 'WebAPITest.TestSearchGame.SearchGame_WithUnexistingGame_ShouldReturnNotFound' PASSED
+2022-05-26 10:21:53.0803|INFO|WebAPITest.TestBase|Started with test 'WebAPITest.TestUpdateGame.UpdateGame_WithUnexistingGame_ShouldReturnNotFound'
+2022-05-26 10:21:53.0803|INFO|WebAPITest.TestBase|Test 'WebAPITest.TestUpdateGame.UpdateGame_WithUnexistingGame_ShouldReturnNotFound' PASSED
+2022-05-26 10:21:53.0803|INFO|WebAPITest.TestBase|Started with test 'WebAPITest.TestUpdateGame.Updategame_WithExistingGame_ShouldReturnNoContent'
+2022-05-26 10:21:53.0803|INFO|WebAPITest.TestBase|Test 'WebAPITest.TestUpdateGame.Updategame_WithExistingGame_ShouldReturnNoContent' PASSED
