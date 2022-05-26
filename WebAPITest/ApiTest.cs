@@ -19,7 +19,6 @@ namespace WebAPITest
         private readonly GameController _sut;
         private readonly Mock<IGameRepository> _gameRepoMock = new Mock<IGameRepository>();
         private readonly Mock<ILogger<GameController>> _loggerMock = new Mock<ILogger<GameController>>();
-        private readonly Random rand = new();
 
         public TestGetGame()
         {
@@ -62,7 +61,6 @@ namespace WebAPITest
         private readonly GameController _sut;
         private readonly Mock<IGameRepository> _gameRepoMock = new Mock<IGameRepository>();
         private readonly Mock<ILogger<GameController>> _loggerMock = new Mock<ILogger<GameController>>();
-        private readonly Random rand = new();
 
         public TestGetGames()
         {
@@ -201,7 +199,6 @@ namespace WebAPITest
         private readonly GameController _sut;
         private readonly Mock<IGameRepository> _gameRepoMock = new Mock<IGameRepository>();
         private readonly Mock<ILogger<GameController>> _loggerMock = new Mock<ILogger<GameController>>();
-        private readonly Random rand = new();
 
         public TestDeleteGame()
         {
