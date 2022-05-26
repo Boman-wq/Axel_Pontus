@@ -14,7 +14,7 @@ using Catalog.Dtos;
 namespace WebAPITest
 {
     [TestClass]
-    public class TestGetGame
+    public class TestGetGame : TestBase
     {
         private readonly GameController _sut;
         private readonly Mock<IGameRepository> _gameRepoMock = new Mock<IGameRepository>();
@@ -57,7 +57,7 @@ namespace WebAPITest
     }
 
     [TestClass]
-    public class TestGetGames
+    public class TestGetGames : TestBase
     {
         private readonly GameController _sut;
         private readonly Mock<IGameRepository> _gameRepoMock = new Mock<IGameRepository>();
@@ -108,7 +108,7 @@ namespace WebAPITest
     }
 
     [TestClass]
-    public class TestCreateGame
+    public class TestCreateGame : TestBase
     {
         private readonly GameController _sut;
         private readonly Mock<IGameRepository> _gameRepoMock = new Mock<IGameRepository>();
@@ -144,7 +144,7 @@ namespace WebAPITest
     }
 
     [TestClass]
-    public class TestUpdateGame
+    public class TestUpdateGame : TestBase
     {
         private readonly GameController _sut;
         private readonly Mock<IGameRepository> _gameRepoMock = new Mock<IGameRepository>();
@@ -196,7 +196,7 @@ namespace WebAPITest
     }
 
     [TestClass]
-    public class TestDeleteGame
+    public class TestDeleteGame : TestBase
     {
         private readonly GameController _sut;
         private readonly Mock<IGameRepository> _gameRepoMock = new Mock<IGameRepository>();
@@ -237,7 +237,7 @@ namespace WebAPITest
     }
 
     [TestClass]
-    public class TestSearchGame
+    public class TestSearchGame : TestBase
     {
         private readonly GameController _sut;
         private readonly Mock<IGameRepository> _gameRepoMock = new Mock<IGameRepository>();
